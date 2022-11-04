@@ -183,7 +183,7 @@ namespace apsi {
                  std::log2(static_cast<double>(table_params_.max_items_per_bin))) *
                     item_params_.felts_per_item);
         }
-
+#ifdef FLATBUFFERS_ON
         /**
         Writes the PSIParams to a stream.
         */
@@ -193,7 +193,7 @@ namespace apsi {
         Reads the PSIParams from a stream.
         */
         static std::pair<PSIParams, std::size_t> Load(std::istream &in);
-
+#endif
         /**
         Reads the PSIParams from a JSON string
         */

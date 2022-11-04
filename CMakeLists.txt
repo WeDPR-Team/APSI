@@ -117,7 +117,7 @@ set(APSI_INCLUDES_INSTALL_DIR ${CMAKE_INSTALL_INCLUDEDIR}/APSI-${APSI_VERSION_MA
 # find_package might throw a FATAL_ERROR before"xxx: not found", e.g. with vcpkg.cmake.
 
 # Microsoft SEAL
-find_package(SEAL 3.7 QUIET REQUIRED)
+find_package(SEAL 4.0 QUIET REQUIRED)
 if(NOT SEAL_FOUND)
     message(FATAL_ERROR "Microsoft SEAL: not found")
 else()
@@ -136,15 +136,15 @@ else()
 endif()
 
 # Flatbuffers
-find_package(Flatbuffers REQUIRED)
-if(NOT Flatbuffers_FOUND)
-    message(FATAL_ERROR "Flatbuffers: not found")
-else()
-    message(STATUS "Flatbuffers: found")
-    get_target_property(FLATBUFFERS_FLATC_PATH flatbuffers::flatc IMPORTED_LOCATION_RELEASE)
-    message(STATUS "flatc path: ${FLATBUFFERS_FLATC_PATH}")
-    include(CompileSchemaCXX)
-endif()
+# find_package(Flatbuffers REQUIRED)
+# if(NOT Flatbuffers_FOUND)
+#     message(FATAL_ERROR "Flatbuffers: not found")
+# else()
+#     message(STATUS "Flatbuffers: found")
+#     get_target_property(FLATBUFFERS_FLATC_PATH flatbuffers::flatc IMPORTED_LOCATION_RELEASE)
+#     message(STATUS "flatc path: ${FLATBUFFERS_FLATC_PATH}")
+#     include(CompileSchemaCXX)
+# endif()
 
 # jsoncpp: for parameter configuration
 find_package(jsoncpp REQUIRED)
@@ -154,9 +154,9 @@ else()
     message(STATUS "jsoncpp: found")
 endif()
 
-# [Option] APSI_USE_LOG4CPLUS (default: ON)
+# [Option] APSI_USE_LOG4CPLUS (default: OFF)
 set(APSI_USE_LOG4CPLUS_OPTION_STR "Use Log4cplus for logging")
-option(APSI_USE_LOG4CPLUS ${APSI_USE_LOG4CPLUS_OPTION_STR} ON)
+option(APSI_USE_LOG4CPLUS ${APSI_USE_LOG4CPLUS_OPTION_STR} OFF)
 if(APSI_USE_LOG4CPLUS)
     # Log4cplus
     find_package(log4cplus REQUIRED)
@@ -167,9 +167,9 @@ if(APSI_USE_LOG4CPLUS)
     endif()
 endif()
 
-# [Option] APSI_USE_ZMQ (default: ON)
+# [Option] APSI_USE_ZMQ (default: OFF)
 set(APSI_USE_ZMQ_OPTION_STR "Use ZeroMQ for networking")
-option(APSI_USE_ZMQ ${APSI_USE_ZMQ_OPTION_STR} ON)
+option(APSI_USE_ZMQ ${APSI_USE_ZMQ_OPTION_STR} OFF)
 if(APSI_USE_ZMQ)
     # ZeroMQ base
     find_package(ZeroMQ REQUIRED)
@@ -259,7 +259,6 @@ apsi_install_target(apsi APSITargets)
 target_link_libraries(apsi
     PUBLIC SEAL::seal
     PUBLIC Kuku::kuku
-    PUBLIC flatbuffers::flatbuffers
     PUBLIC jsoncpp_static)
 if(APSI_USE_LOG4CPLUS)
     target_link_libraries(apsi PUBLIC log4cplus::log4cplus)

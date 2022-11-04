@@ -10,7 +10,9 @@
 
 // APSI
 #include "apsi/bin_bundle.h"
+#ifdef FLATBUFFERS_ON
 #include "apsi/bin_bundle_generated.h"
+#endif
 #include "apsi/thread_pool_mgr.h"
 #include "apsi/util/interpolate.h"
 #include "apsi/util/utils.h"
@@ -354,8 +356,9 @@ namespace apsi {
             bool compressed)
             : crypto_context(move(context))
         {
-            compr_mode_type compr_mode = compressed ? compr_mode_type::zstd : compr_mode_type::none;
-
+            // compr_mode_type compr_mode = compressed ? compr_mode_type::zstd :
+            // compr_mode_type::none;
+            compr_mode_type compr_mode = compr_mode_type::none;
             // Find the highest degree polynomial in the list. The max degree determines how many
             // Plaintexts we need to make
             size_t max_deg = 0;
@@ -1035,6 +1038,7 @@ namespace apsi {
             cache_.felt_interp_polyns.clear();
         }
 
+#ifdef FLATBUFFERS_ON
         namespace {
             flatbuffers::Offset<fbs::FEltArray> fbs_create_felt_array(
                 flatbuffers::FlatBufferBuilder &fbs_builder, const vector<felt_t> &felts)
@@ -1521,5 +1525,7 @@ namespace apsi {
             vector<unsigned char> in_data = read_from_stream(in);
             return load(in_data);
         }
+#endif
     } // namespace sender
+
 } // namespace apsi

@@ -423,7 +423,7 @@ namespace apsi {
             Strips the BinBundle of all information not needed for serving a query.
             */
             void strip();
-
+#ifdef FLATBUFFERS_ON
             /**
             Saves the BinBundle to a stream.
             */
@@ -438,6 +438,8 @@ namespace apsi {
             Loads the BinBundle from a stream.
             */
             std::pair<std::uint32_t, std::size_t> load(std::istream &in);
+#endif
         }; // class BinBundle
-    }      // namespace sender
+
+    } // namespace sender
 } // namespace apsi

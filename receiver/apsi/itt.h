@@ -20,7 +20,15 @@ namespace apsi {
             create this query. If the given table index was not populated, i.e., there is no
             translation, then this function returns the number of items encoded by this query.
             */
-            std::size_t find_item_idx(std::size_t table_idx) const noexcept;
+            std::size_t find_item_idx(std::size_t table_idx) const noexcept
+            {
+                auto item_idx = table_idx_to_item_idx_.find(table_idx);
+                if (item_idx == table_idx_to_item_idx_.cend()) {
+                    return item_count();
+                }
+
+                return item_idx->second;
+            }
 
             /**
             Returns the number of items encoded by this index translation table.
@@ -30,7 +38,6 @@ namespace apsi {
                 return item_count_;
             }
 
-        private:
             IndexTranslationTable() = default;
 
             std::unordered_map<std::size_t, std::size_t> table_idx_to_item_idx_;

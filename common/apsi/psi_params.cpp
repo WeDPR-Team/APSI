@@ -9,7 +9,9 @@
 
 // APSI
 #include "apsi/psi_params.h"
+#ifdef FLATBUFFERS_ON
 #include "apsi/psi_params_generated.h"
+#endif
 #include "apsi/version.h"
 #include "apsi/util/utils.h"
 
@@ -179,6 +181,7 @@ namespace apsi {
         bundle_idx_count_ = table_params_.table_size / items_per_bundle_;
     }
 
+#ifdef FLATBUFFERS_ON
     size_t PSIParams::save(ostream &out) const
     {
         flatbuffers::FlatBufferBuilder fbs_builder(128);
@@ -286,6 +289,8 @@ namespace apsi {
 
         return { PSIParams(item_params, table_params, query_params, seal_params), in_data.size() };
     }
+#endif
+
 #ifndef APSI_DISABLE_JSON
     PSIParams PSIParams::Load(const string &in)
     {
