@@ -259,7 +259,7 @@ apsi_install_target(apsi APSITargets)
 target_link_libraries(apsi
     PUBLIC SEAL::seal
     PUBLIC Kuku::kuku
-    PUBLIC jsoncpp_static)
+    PUBLIC jsoncpp_lib_static)
 if(APSI_USE_LOG4CPLUS)
     target_link_libraries(apsi PUBLIC log4cplus::log4cplus)
 endif()
