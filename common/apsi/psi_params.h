@@ -153,7 +153,7 @@ namespace apsi {
         {
             return item_bit_count_per_felt_;
         }
-
+        PSIParams() = default;
         PSIParams(
             const ItemParams &item_params,
             const TableParams &table_params,
