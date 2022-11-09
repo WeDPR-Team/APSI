@@ -30,7 +30,7 @@ install(
 )
 
 add_subdirectory(fourq)
-# add_subdirectory(network)
+add_subdirectory(network)
 add_subdirectory(oprf)
 add_subdirectory(util)
 set(APSI_SOURCE_FILES ${APSI_SOURCE_FILES} PARENT_SCOPE)
